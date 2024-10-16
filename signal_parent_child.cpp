@@ -4,12 +4,16 @@
 #include<stdlib.h>
 #include<sys/wait.h>
 
+//handle SIGSTOP signal by child process, however, child process cannot catch SIGSTOP
+//so, child process do the default action by SIGSTOP (stop the process until receive SIGCONT)
 void sig_handler_sigstop(int signo) {
     if(signo == SIGSTOP) {
         printf("child: received SIGSTOP, suspend temporarily process..\n");
     }
 }
 
+//handle SIGCONT signal by child process
+//child process receive SIGCONT, continue doing work
 void sig_handler_sigcont(int signo) {
     if(signo == SIGCONT) {
         printf("child: received SIGCONT, continue doing my work\n");
